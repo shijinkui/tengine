@@ -2010,10 +2010,14 @@ ngx_http_ssi_include(ngx_http_request_t *r, ngx_http_ssi_ctx_t *ctx,
         return NGX_HTTP_SSI_ERROR;
     }
 
-    if (uri == NULL && file == NULL) {
+    if (uri == NULL) {
         ngx_log_error(NGX_LOG_ERR, r->connection->log, 0,
                       "no parameter in \"include\" SSI command");
         return NGX_HTTP_SSI_ERROR;
+    }
+
+    if (file == NULL) {
+        return NGX_OK;
     }
 
     if (set && stub) {
